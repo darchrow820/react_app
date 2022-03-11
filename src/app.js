@@ -473,102 +473,156 @@
 
 // Boiling Calculator
 
-class Calculator extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
-    this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
-    this.state = {
-      temperature: "",
-      scale: "c",
-    };
-  }
+// class Calculator extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+//     this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
+//     this.state = {
+//       temperature: "",
+//       scale: "c",
+//     };
+//   }
 
-  handleCelsiusChange(temperature) {
-    this.setState({ scale: "c", temperature });
-  }
+//   handleCelsiusChange(temperature) {
+//     this.setState({ scale: "c", temperature });
+//   }
 
-  handleFahrenheitChange(temperature) {
-    this.setState({ scale: "f", temperature });
-  }
+//   handleFahrenheitChange(temperature) {
+//     this.setState({ scale: "f", temperature });
+//   }
 
-  render() {
-    const scale = this.state.scale;
-    const temperature = this.state.temperature;
-    const celsius =
-      scale === "f" ? tryConvert(temperature, toCelsius) : temperature;
-    const fahrenheit =
-      scale === "c" ? tryConvert(temperature, toFahrenheit) : temperature;
+//   render() {
+//     const scale = this.state.scale;
+//     const temperature = this.state.temperature;
+//     const celsius =
+//       scale === "f" ? tryConvert(temperature, toCelsius) : temperature;
+//     const fahrenheit =
+//       scale === "c" ? tryConvert(temperature, toFahrenheit) : temperature;
 
-    return (
-      <div>
-        <TemperatureInput
-          scale="c"
-          temperature={celsius}
-          onTemperatureChange={this.handleCelsiusChange}
-        />
-        <TemperatureInput
-          scale="f"
-          temperature={fahrenheit}
-          onTemperatureChange={this.handleFahrenheitChange}
-        />
-        <BoilingVerdict celsius={parseFloat(celsius)} />
-      </div>
-    );
-  }
-}
+//     return (
+//       <div>
+//         <TemperatureInput
+//           scale="c"
+//           temperature={celsius}
+//           onTemperatureChange={this.handleCelsiusChange}
+//         />
+//         <TemperatureInput
+//           scale="f"
+//           temperature={fahrenheit}
+//           onTemperatureChange={this.handleFahrenheitChange}
+//         />
+//         <BoilingVerdict celsius={parseFloat(celsius)} />
+//       </div>
+//     );
+//   }
+// }
 
-const scaleNames = {
-  c: "Цельсия",
-  f: "Фаренгейта",
-};
+// const scaleNames = {
+//   c: "Цельсия",
+//   f: "Фаренгейта",
+// };
 
-class TemperatureInput extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
+// class TemperatureInput extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.handleChange = this.handleChange.bind(this);
+//   }
 
-  handleChange(e) {
-    this.props.onTemperatureChange(e.target.value);
-  }
+//   handleChange(e) {
+//     this.props.onTemperatureChange(e.target.value);
+//   }
 
-  render() {
-    const temperature = this.props.temperature;
-    const scale = this.props.scale;
-    return (
-      <fieldset>
-        <legend>Введите температуру в градусах {scaleNames[scale]}:</legend>
-        <input value={temperature} onChange={this.handleChange} />
-      </fieldset>
-    );
-  }
-}
+//   render() {
+//     const temperature = this.props.temperature;
+//     const scale = this.props.scale;
+//     return (
+//       <fieldset>
+//         <legend>Введите температуру в градусах {scaleNames[scale]}:</legend>
+//         <input value={temperature} onChange={this.handleChange} />
+//       </fieldset>
+//     );
+//   }
+// }
 
-function toFahrenheit(celsius) {
-  return (celsius * 9) / 5 + 32;
-}
+// function toFahrenheit(celsius) {
+//   return (celsius * 9) / 5 + 32;
+// }
 
-function toCelsius(fahrenheit) {
-  return ((fahrenheit - 32) * 5) / 9;
-}
+// function toCelsius(fahrenheit) {
+//   return ((fahrenheit - 32) * 5) / 9;
+// }
 
-function tryConvert(temperature, convert) {
-  const input = parseFloat(temperature);
-  if (Number.isNaN(input)) {
-    return "";
-  }
+// function tryConvert(temperature, convert) {
+//   const input = parseFloat(temperature);
+//   if (Number.isNaN(input)) {
+//     return "";
+//   }
 
-  const output = convert(input);
-  const rounded = Math.round(output * 1000) / 1000;
-  return rounded.toString();
-}
+//   const output = convert(input);
+//   const rounded = Math.round(output * 1000) / 1000;
+//   return rounded.toString();
+// }
 
-function BoilingVerdict(props) {
-  if (props.celsius >= 100) {
-    return <p>Вода закипит.</p>;
-  }
-  return <p>Вода не закипит.</p>;
-}
+// function BoilingVerdict(props) {
+//   if (Number.isNaN(props.celsius)) {
+//     return <p>Введите число.</p>;
+//   } else if (props.celsius >= 100) {
+//     return <p>Вода закипит.</p>;
+//   } else {
+//     return <p>Вода не закипит.</p>;
+//   }
+// }
 
-ReactDOM.render(<Calculator />, document.getElementById("root"));
+// ReactDOM.render(<Calculator />, document.getElementById("root"));
+
+// Composition for class components
+
+// function FancyBorder(props) {
+//   return (
+//     <div className={"FancyBorder FancyBorder-" + props.color}>
+//       {props.children}
+//     </div>
+//   );
+// }
+
+// function Dialog(props) {
+//   return (
+//     <FancyBorder color="blue">
+//       <h1 className="Dialog-title">{props.title}</h1>
+//       <p className="Dialog-message">{props.message}</p>
+//       {props.children}
+//     </FancyBorder>
+//   );
+// }
+
+// class SignUpDialog extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.handleChange = this.handleChange.bind(this);
+//     this.handleSignUp = this.handleSignUp.bind(this);
+//     this.state = { login: "" };
+//   }
+
+//   render() {
+//     return (
+//       <Dialog
+//         title="Программа исследования Марса"
+//         message="Как к вам обращаться?"
+//       >
+//         <input value={this.state.login} onChange={this.handleChange} />
+//         <button onClick={this.handleSignUp}>Запишите меня!</button>
+//       </Dialog>
+//     );
+//   }
+
+//   handleChange(e) {
+//     this.setState({ login: e.target.value });
+//   }
+
+//   handleSignUp() {
+//     alert(`Добро пожаловать на борт, ${this.state.login}!`);
+//   }
+// }
+
+// ReactDOM.render(<SignUpDialog />, document.getElementById("root"));
